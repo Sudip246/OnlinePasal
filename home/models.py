@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 
 
 # Create your models here.
+
 class Category (models.Model):
     name = models.CharField(max_length = 200)
     image = models.ImageField(upload_to='media')
@@ -119,6 +120,16 @@ class Cart(models.Model):
     total = models.IntegerField()
     date = models.DateTimeField(auto_now_add= True)
     checkout = models.BooleanField(default = False)
+    items = models.ForeignKey(Product, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.username
+
+
+class WishList(models.Model):
+    username = models.CharField(max_length = 300)
+    slug = models.CharField(max_length= 300)
+    date = models.DateTimeField(auto_now_add = True)
     items = models.ForeignKey(Product, on_delete = models.CASCADE)
 
     def __str__(self):

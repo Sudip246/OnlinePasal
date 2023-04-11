@@ -124,16 +124,15 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{hot.image.url}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="/add_to_cart/{{hot.slug}}"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="/add_to_wishlist/{{hot.slug}}"><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="/details/{{hot.slug}}">{{hot.name}}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>RS{{hot.discounted_price}}</h5><h6 class="text-muted ml-2"><del>RS{{hot.price}}</del></h6>
+                            <h5>RS {{hot.discounted_price}}</h5><h6 class="text-muted ml-2"><del>RS {{hot.price}}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -200,16 +199,15 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{new.image.url}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="/add_to_cart/{{new.slug}}"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="/add_to_wishlist/{{new.slug}}"><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="/details/{{new.slug}}">{{new.name}}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>RS{{new.discounted_price}}</h5><h6 class="text-muted ml-2"><del>RS{{new.price}}</del></h6>
+                            <h5>RS {{new.discounted_price}}</h5><h6 class="text-muted ml-2"><del>RS {{new.price}}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
