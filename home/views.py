@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import *
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -38,7 +39,9 @@ class HomeView(BaseView):
 
 
 def contact(request):
-    views={}
+    views = {}
+    views["cart_counts"] = count_cart(request)
+    views["wish_counts"] = count_wish(request)
     views['information'] = Information.objects.all()
     if request.method == "POST":
         name = request.POST['name']
@@ -212,3 +215,33 @@ def delete_wishlist(request, slug):
         WishList.objects.filter(slug=slug,  username=username).delete()
 
         return redirect('/wishlist')
+
+
+def signup(request):
+    if request.method == "POST":
+        first_name = request.POST['f_name']
+        last_name = request.POST['l_name']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        cpassword = request.POST['cpassword']
+
+        if password == cpassword:
+            if User.objects.filter(username = username).exists():
+                messages.error(request, 'The username is already taken')
+                return redirect('/signup')
+            elif User.objects.filter(email = email).exists():
+                messages.error(request, 'The email is already used.')
+                return redirect('/signup')
+            else:
+                data = User.objects.create(
+                    first_name = first_name,
+                    last_name = last_name,
+                    email = email,
+                    username = username,
+                    password = password
+                )
+                data.save()
+        else:
+            messages.error(request, 'The  password does not match.')
+    return render(request, 'signup.html')

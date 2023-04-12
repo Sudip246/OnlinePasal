@@ -17,5 +17,6 @@ urlpatterns = [
         path('add_to_wishlist/<slug>', add_to_wishlist, name='add_to_wishlist'),
         path('delete_wishlist/<slug>', delete_wishlist, name='delete_wishlist'),
         path('count_wish/<slug>', count_wish, name = "count_wish"),
+        path('signup', signup, name = 'signup'),
 
 ]

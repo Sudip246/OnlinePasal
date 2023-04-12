@@ -67,7 +67,7 @@ class Information(models.Model):
     email = models.EmailField(max_length = 500)
 
     def __str__(self):
-        return self.address1
+        return self.address
 
 
 STATUS = (('Active', 'Active'), ('Inactive', 'Inactive'))
