@@ -23,6 +23,7 @@ class BaseView(View):
     views['categories'] = Category.objects.all()
     views['sale_products'] = Product.objects.filter(labels='sale')
 
+
 class HomeView(BaseView):
     def get(self, request):
         self.views
@@ -245,3 +246,19 @@ def signup(request):
         else:
             messages.error(request, 'The  password does not match.')
     return render(request, 'signup.html')
+
+
+class CheckoutView(BaseView):
+    def get(self, request):
+        self.views["wish_counts"] = count_wish(request)
+        self.views["cart_counts"] = count_cart(request)
+        username = request.user.username
+        self.views['orders'] = Cart.objects.filter(username=username)
+        s = 0
+        for i in self.views["orders"]:
+            s = s + i.total
+        self.views["sub_total"] = s
+        self.views['delivery_charge'] = 100
+        self.views['grand_total'] = s+100
+
+        return render(request, 'checkout.html', self.views)
