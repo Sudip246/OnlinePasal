@@ -13,14 +13,6 @@ class Category (models.Model):
         return self.name
 
 
-class SubCategory(models.Model):
-    name = models.CharField(max_length= 200)
-    category = models.ForeignKey(Category, on_delete= models.CASCADE)
-    slug = models.CharField(max_length=500, unique=True)
-
-    def __str__(self):
-        return self.name
-
 
 class Slider(models.Model):
     name = models.CharField(max_length=200)
@@ -82,20 +74,10 @@ class Product(models.Model):
     description = RichTextField()
     specification = RichTextField()
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
-    subcategory = models.ForeignKey(SubCategory, on_delete = models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete = models.CASCADE)
     slug = models.CharField(max_length = 500, unique = True)
     status = models.CharField(choices= STATUS, max_length= 50)
     labels = models.CharField(choices = LABELS, max_length = 50)
-
-    def __str__(self):
-        return self.name
-
-
-class ProductImages(models.Model):
-    name = models.CharField(max_length= 300)
-    image = models.ImageField(upload_to= 'media')
-    product = models.ForeignKey(Product, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -134,3 +116,33 @@ class WishList(models.Model):
 
     def __str__(self):
         return self.username
+
+
+orderstatuses = (('Pending', 'Pending'), ('Out for Shipping','Out for Shipping'), ('Completed','Completed'))
+
+
+class Order(models.Model):
+    username = models.CharField(max_length = 300, null= False)
+    fname = models.CharField(max_length = 300, null= False)
+    lname = models.CharField(max_length = 300, null= False)
+    email = models.EmailField(max_length = 300, null= False)
+    phone = models.CharField(max_length = 300, null= False)
+    address = models.TextField(null= False)
+    city = models.CharField(max_length = 300, null= False)
+    state = models.CharField(max_length = 300, null= False)
+    country = models.CharField(max_length = 300, null= False)
+    pincode = models.CharField(max_length = 300, null= False)
+    total_price  = models.FloatField(null = False)
+    payment_mode = models.CharField(max_length = 300, null= False)
+    payment_id = models.CharField(max_length = 300, null= True)
+    status = models.CharField(max_length = 300, null= False, choices=orderstatuses, default= 'Pending')
+    message = models.TextField(null = True)
+    # tracking_no = models.CharField(max_length=300, null=True)
+    created_at = models.DateTimeField(auto_now_add=False)
+    updated_at = models.DateTimeField(auto_now =True, auto_now_add=False)
+
+    def __str__(self):
+        return '{} - {}'.format(self.id)
+
+
+

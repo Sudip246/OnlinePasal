@@ -19,5 +19,7 @@ urlpatterns = [
         path('count_wish/<slug>', count_wish, name = "count_wish"),
         path('signup', signup, name = 'signup'),
         path('checkout', CheckoutView.as_view(), name = 'cart'),
+        path('place-order', CheckoutView.placeorder, name ="placeorder"),
+
 
 ]

@@ -29,7 +29,6 @@ class HomeView(BaseView):
         self.views
         self.views["cart_counts"] = count_cart(request)
         self.views["wish_counts"] = count_wish(request)
-        self.views['subcategories'] = SubCategory.objects.all()
         self.views['sliders'] = Slider.objects.all()
         self.views['ads'] = Ad.objects.all()
         self.views['brands'] = Brand.objects.all()
@@ -66,20 +65,18 @@ class ProductDetailView(BaseView):
         self.views["wish_counts"] = count_wish(request)
         self.views['product_detail'] = Product.objects.filter(slug=slug)
         self.views['product_reviews'] = ProductReview.objects.filter(slug = slug )
-        subcat_id = Product.objects.get(slug = slug).subcategory_id
         products_id = Product.objects.get(slug=slug).id
         self.views['product_images'] = ProductImages.objects.filter(product_id = products_id)
-        self.views['related_detail'] = Product.objects.filter(subcategory_id = subcat_id)
 
         return render(request, 'product-detail.html', self.views)
 
 
 def product_review(request, slug):
-    if request.method == "Post":
+    if request.method == "POST":
         username = request.user.username
         email = request.user.email
         star = request.POST["star"]
-        comment = request.POST["comment"]
+        comment = request.POST["message"]
         data = ProductReview.objects.create(
             name = username,
             email = email,
@@ -248,6 +245,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+
 class CheckoutView(BaseView):
     def get(self, request):
         self.views["wish_counts"] = count_wish(request)
@@ -262,3 +260,24 @@ class CheckoutView(BaseView):
         self.views['grand_total'] = s+100
 
         return render(request, 'checkout.html', self.views)
+
+    def placeorder(request):
+        if request.method == 'POST':
+            neworder = Order()
+            neworder.username = request.user.username
+            neworder.fname = request.POST.get('fname')
+            neworder.lname = request.POST.get('lname')
+            neworder.email = request.POST.get('email')
+            neworder.phone = request.POST.get('phone')
+            neworder.address = request.POST.get('address')
+            neworder.city = request.POST.get('city')
+            neworder.state = request.POST.get('state')
+            neworder.country = request.POST.get('country')
+            neworder.pincode = request.POST.get('pincode')
+
+            neworder.payment_mode = request.POST.get('payment_mode')
+
+            Cart.objects.filter(username = request.user.username).delete()
+            messages.success(request, "Your order has been placed successfully")
+        return redirect('/')
+
