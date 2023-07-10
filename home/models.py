@@ -13,7 +13,6 @@ class Category (models.Model):
         return self.name
 
 
-
 class Slider(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='media')
@@ -78,6 +77,15 @@ class Product(models.Model):
     slug = models.CharField(max_length = 500, unique = True)
     status = models.CharField(choices= STATUS, max_length= 50)
     labels = models.CharField(choices = LABELS, max_length = 50)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductImages(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='media')
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
