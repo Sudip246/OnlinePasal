@@ -65,8 +65,6 @@ class ProductDetailView(BaseView):
         self.views["wish_counts"] = count_wish(request)
         self.views['product_detail'] = Product.objects.filter(slug=slug)
         self.views['product_reviews'] = ProductReview.objects.filter(slug = slug )
-        products_id = Product.objects.get(slug=slug).id
-        self.views['product_images'] = ProductImages.objects.filter(product_id = products_id)
 
         return render(request, 'product-detail.html', self.views)
 
@@ -243,7 +241,6 @@ def signup(request):
         else:
             messages.error(request, 'The  password does not match.')
     return render(request, 'signup.html')
-
 
 
 class CheckoutView(BaseView):

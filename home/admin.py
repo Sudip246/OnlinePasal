@@ -48,13 +48,6 @@ class InformationAdmin(admin.ModelAdmin):
     search_fields = ("email", "address")
 
 
-@admin.register(ProductImages)
-class Admin(admin.ModelAdmin):
-    list_display = ("name","image")
-    list_filter = ("image", "product",)
-    search_fields = ("name",)
-
-
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "price", "category", "brand", "labels")

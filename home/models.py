@@ -81,15 +81,6 @@ class Product(models.Model):
         return self.name
 
 
-class ProductImages(models.Model):
-    name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='media')
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
 class ProductReview(models.Model):
     name = models.CharField(max_length= 300)
     email = models.EmailField(max_length= 300)
@@ -144,7 +135,6 @@ class Order(models.Model):
     payment_id = models.CharField(max_length = 300, null= True)
     status = models.CharField(max_length = 300, null= False, choices=orderstatuses, default= 'Pending')
     message = models.TextField(null = True)
-    # tracking_no = models.CharField(max_length=300, null=True)
     created_at = models.DateTimeField(auto_now_add=False)
     updated_at = models.DateTimeField(auto_now =True, auto_now_add=False)
 
