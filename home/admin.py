@@ -9,7 +9,7 @@ from .models import *
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
-    list_filter = ("image", "slug", )
+    list_filter = ("slug", )
     search_fields = ("name", "slug")
 
 
