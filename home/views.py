@@ -261,18 +261,17 @@ class CheckoutView(BaseView):
     def placeorder(request):
         if request.method == 'POST':
             neworder = Order()
-            neworder.username = request.user.username
-            neworder.fname = request.POST.get('fname')
-            neworder.lname = request.POST.get('lname')
-            neworder.email = request.POST.get('email')
-            neworder.phone = request.POST.get('phone')
-            neworder.address = request.POST.get('address')
-            neworder.city = request.POST.get('city')
-            neworder.state = request.POST.get('state')
-            neworder.country = request.POST.get('country')
-            neworder.pincode = request.POST.get('pincode')
+            neworder.fname = request.POST['fname']
+            neworder.lname = request.POST['lname']
+            neworder.email = request.POST['email']
+            neworder.phone = request.POST['phone']
+            neworder.address = request.POST['address']
+            neworder.city = request.POST['city']
+            neworder.state = request.POST['state']
+            neworder.country = request.POST['country']
+            neworder.pincode = request.POST['pincode']
 
-            neworder.payment_mode = request.POST.get('payment_mode')
+            neworder.payment_mode = request.POST['payment_mode']
 
             Cart.objects.filter(username = request.user.username).delete()
             messages.success(request, "Your order has been placed successfully")
